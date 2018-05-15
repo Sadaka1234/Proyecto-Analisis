@@ -60,7 +60,7 @@ module.exports = router;
 
  //const db = require('./config');
  const sequelize = require('./config');
- const path = require('path')
+ const path = require('path');
 
  //Testdeconexi ́on
  sequelize.authenticate().then(() => {

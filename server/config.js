@@ -7,11 +7,11 @@ const connection = mysql.createConnection({
 });
 connection.connect(function(){
     console.log("Database Conectada");
-})
+});
 
 
 //Add Sequelize as ORM //
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const BD_NAME = 'dbtest';
 const USER = 'root';
@@ -22,4 +22,4 @@ defaultScope:{ attributes:{
 exclude: ['createdAt','updatedAt']
 } } } });
 // Recuerden que el JSON de conexi ́on se puede dejar en un archivo aparte
-module.exports = sequelize
+module.exports = sequelize;
