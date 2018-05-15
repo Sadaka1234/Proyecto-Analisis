@@ -26,7 +26,7 @@ app.get('*', (req, res) =>{
 });
 
 /* Setear el puerto donde se escucharán las peticiones */
-const port = process.env.PORT || '3000';
+const port = process.env.PORT || '3003';
 app.set('port', port);
 
 /* Levantamos el servidor */

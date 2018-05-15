@@ -20,6 +20,7 @@ router.get('/entradas', (req, res) =>{
         }
     });
 });
+
 router.get('/graficos', (req, res) =>{
     var query = "SELECT * FROM graficos";
     db.query(query, function(err, rows){
