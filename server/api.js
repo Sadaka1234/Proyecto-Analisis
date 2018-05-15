@@ -56,3 +56,15 @@ router.post('/entrada',(req, res)=>{
     });
 });
 module.exports = router;
+
+
+ //const db = require('./config');
+ const sequelize = require('./config');
+ const path = require('path')
+
+ //Testdeconexi ́on
+ sequelize.authenticate().then(() => {
+ console.log("Conexion establecida");
+ }).catch(err => {
+ console.error("No te puedes conectar: ", err);
+ });
