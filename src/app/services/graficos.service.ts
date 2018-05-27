@@ -6,7 +6,20 @@ import 'rxjs/add/operator/map';
 export class GraficosService {
 
   constructor(private http: Http) { }
-  getGraficos(){
-    return this.http.get('/api/v1/graficos').map(res => res.json());
-  };
+
+  getFechas(){
+
+    return this.http.get('/api/v1/graficos/getFechas').map(res => res.json());
+
+  }
+
+  getIds(data){
+    console.log(data.horaToma);
+    let url = '/api/v1/graficos/getIds/' + data.horaToma;
+
+  	return this.http.get(url).map(res => res.json());
+
+  }
+
+
 }

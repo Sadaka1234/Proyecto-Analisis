@@ -1,6 +1,9 @@
-const csv = require('csv');
-const fv = require('fs');
-const bus = require('../models/BUS.js');
+var CSVtoSq = {};
+CSVtoSq.toCSV = function(){
+
+var csv = require('csv');
+var fv = require('fs');
+var bus = require('../models/BUS.js');
 
 var datos = fs.createReadStream('../CSV/fms1-2017-10-01.csv');
 var parser = csv.parse({
@@ -26,4 +29,8 @@ var transform = csv.transform(function(row) {
     })
 });
 
-input.pipe(parser).pipe(transform)
+datos.pipe(parser).pipe(transform);
+
+};
+
+//module.exports = CSVtoSeq;

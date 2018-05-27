@@ -1,59 +1,61 @@
 const express = require('express');
 const router = express.Router();
-const db = require('./config');
 
-router.get('/', (req, res) =>{
-    res.send('api works');
+const sequelize = require('./config');
+const path = require('path');
+const FN = require('./files')
+
+ //Testdeconexi ́on
+sequelize.authenticate().then(() => {
+console.log("Conexion establecida");
+}).catch(err => {
+console.error("No te puedes conectar: ", err);
 });
 
-router.get('/entradas', (req, res) =>{
-    var query = "SELECT * FROM entrada";
-    db.query(query, function(err, rows){
-        if(err){
-            console.log(err);
-            res.status(500).send({
-                data: "Ups, ha ocurrido algo"
-            });
-        }
-        else{
-            return res.status(200).send(rows);
-        }
-    });
-});
+const Entrada = sequelize.import('entrada', require("../models/entrada"));
+const infoBus = sequelize.import('BUS', require("../models/BUS"));
 
-router.get('/graficos', (req, res) =>{
-    var query = "SELECT * FROM graficos";
-    db.query(query, function(err, rows){
-        if(err){
-            console.log(err);
-            res.status(500).send({
-                data: "Ups, ha ocurrido algo"
-            });
-        }
-        else{
-            return res.status(200).send(rows);
-        }
+router.get('/entradas', (req, res) =>{ 
+    Entrada.findAll().then(rows => {
+        res.status(200).send(rows); 
     });
 });
 
 
-router.post('/entrada',(req, res)=>{
-    var query = "INSERT INTO entrada (titulo, contenido) VALUES('"+req.body.titulo+"', '"+req.body.contenido+"')";
-    db.query(query, function(err, rows){
-        if(err){
-            res.status(500).send({
-                body:{
-                    result:"error"
-                }
-            });
-        }
-        else{
-            return res.status(200).send({
-                body:{
-                    result:"OK"
-                }
-            });
-        }
+router.post('/entrada',(req, res)=>{ 
+    Entrada.create({
+    titulo: req.body.titulo,
+    contenido: req.body.contenido, 
+    }).then(rows => {
+        res.status(200).send("1"); 
+    }).catch(err => {
+            console.log(err); 
+            res.status(200).send("0");
     });
 });
+
+
+router.get('/getEntrada/:entrada', (req, res) =>{
+    Entrada.findAll({ where: { identrada: req.params.entrada } 
+    }).then(rows => {
+        res.status(200).send(rows); 
+    });
+});
+
+router.get('/graficos/getFechas', (req, res) =>{
+    sequelize.query("select DISTINCT DATE(horaToma) from Bus",{ type: sequelize.QueryTypes.SELECT })
+    .then(rows => { res.status(200).send(rows); 
+    });
+});
+
+router.get('/graficos/getIds/:horaToma', (req, res) =>{
+    console.log(req.params);
+    let query = 'select distinct Asset_id from Bus where DATE(horaToma) = "' + req.params.horaToma + '"';
+    sequelize.query(query,{ type: sequelize.QueryTypes.SELECT })
+    .then(rows => { res.status(200).send(rows); 
+    });
+});
+
+
 module.exports = router;
+

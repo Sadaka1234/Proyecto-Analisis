@@ -25,13 +25,14 @@
       "scripts": [
          "../node_modules/jquery/dist/jquery.js",
           "../node_modules/bootstrap/dist/js/bootstrap.js",
-          "graficos.js"
+          "../node_modules/plotly.js/dist/plotly-basic.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }
+
     }
   ],
   "e2e": {

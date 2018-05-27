@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+/*const mysql = require('mysql');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -9,7 +9,7 @@ connection.connect(function(){
     console.log("Database Conectada");
 });
 
-module.exports = connection;
+module.exports = connection;*/
 
 //Add Sequelize as ORM //
 const Sequelize = require('sequelize')
@@ -28,4 +28,4 @@ exclude: ['createdAt','updatedAt']
 });
 // Recuerden que el JSON de conexi´on se puede dejar en un archivo aparte
 
- module.exports = sequelize
+ module.exports = sequelize;
